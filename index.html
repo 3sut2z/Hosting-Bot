@@ -4,132 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hosting Bot Discord</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #202225;
-            color: white;
-            text-align: center;
-        }
-        .container {
-            width: 80%;
-            margin: auto;
-            padding: 20px;
-            background: #2c2f33;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-        }
-        textarea, input {
-            width: 90%;
-            padding: 10px;
-            margin: 10px 0;
-            background: #99aab5;
-            border: none;
-            border-radius: 5px;
-        }
-        button {
-            padding: 10px 20px;
-            background: #7289da;
-            border: none;
-            color: white;
-            cursor: pointer;
-            border-radius: 5px;
-            margin: 5px;
-        }
-        #console {
-            width: 90%;
-            height: 200px;
-            background: black;
-            color: lime;
-            overflow-y: scroll;
-            text-align: left;
-            padding: 10px;
-            margin-top: 10px;
-            border-radius: 5px;
-        }
-    </style>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="container">
         <h1>Hosting Bot Discord</h1>
-        <h3>Chạy bot bằng JavaScript hoặc Python</h3>
-        <textarea id="botCode" rows="10" placeholder="Nhập mã bot của bạn ở đây..."></textarea>
-        <textarea id="requirements" placeholder="Nhập dependencies cho Python (requirements.txt)"></textarea>
-        <input type="text" id="npm" placeholder="Nhập lệnh npm (ví dụ: npm install discord.js)">
-        <button onclick="installNpm()">Cài npm</button>
-        <button onclick="installPip()">Cài pip</button>
-        <button onclick="installDiscordJS()">Cài discord.js</button>
-        <button onclick="installDiscordPy()">Cài discord.py</button>
-        <button onclick="runBot()">Chạy Bot</button>
-        <h3>Console:</h3>
-        <div id="console"></div>
+        <button id="loginBtn">Đăng nhập với Discord</button>
+        <div id="botStatus">
+            <h2>Trạng thái Bot</h2>
+            <p id="status">Đang tải...</p>
+            <button id="startBot">Khởi động Bot</button>
+            <button id="stopBot">Dừng Bot</button>
+        </div>
     </div>
-    <script>
-        function logConsole(message) {
-            let consoleDiv = document.getElementById("console");
-            consoleDiv.innerHTML += message + "<br>";
-            consoleDiv.scrollTop = consoleDiv.scrollHeight;
-        }
-
-        function installNpm() {
-            let command = document.getElementById("npm").value;
-            if (!command) {
-                logConsole("Vui lòng nhập lệnh npm");
-                return;
-            }
-            logConsole("Chạy: " + command);
-            fetch("/install/npm", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ command })
-            }).then(response => response.text()).then(data => logConsole(data));
-        }
-
-        function installPip() {
-            let requirements = document.getElementById("requirements").value;
-            if (!requirements) {
-                logConsole("Vui lòng nhập requirements.txt");
-                return;
-            }
-            logConsole("Cài đặt dependencies Python...");
-            fetch("/install/pip", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ requirements })
-            }).then(response => response.text()).then(data => logConsole(data));
-        }
-
-        function installDiscordJS() {
-            logConsole("Cài đặt discord.js...");
-            fetch("/install/npm", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ command: "npm install discord.js" })
-            }).then(response => response.text()).then(data => logConsole(data));
-        }
-
-        function installDiscordPy() {
-            logConsole("Cài đặt discord.py...");
-            fetch("/install/pip", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ requirements: "discord" })
-            }).then(response => response.text()).then(data => logConsole(data));
-        }
-
-        function runBot() {
-            let botCode = document.getElementById("botCode").value;
-            if (!botCode) {
-                logConsole("Vui lòng nhập mã bot trước khi chạy");
-                return;
-            }
-            logConsole("Đang khởi chạy bot...");
-            fetch("/run/bot", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ botCode })
-            }).then(response => response.text()).then(data => logConsole(data));
-        }
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
