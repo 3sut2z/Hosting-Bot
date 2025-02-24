@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hosting Bot Discord</title>
+    <script src="server.js"></script>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -66,24 +67,34 @@
         <div class="console" id="consoleOutput">Console output...</div>
     </div>
     <script>
-    document.getElementById("startBot").addEventListener("click", function() {
-        const botCode = document.getElementById("botCode").value;
-        fetch('/start-bot', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ code: botCode })
-        }).then(res => res.json()).then(data => {
-            document.getElementById("status").innerText = data.status;
-            document.getElementById("consoleOutput").innerText += `\n${data.message}`;
+        document.getElementById("startBot").addEventListener("click", function() {
+            const botCode = document.getElementById("botCode").value;
+            fetch("https://3sut2z.github.io/start-bot", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ code: botCode })
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error("Lỗi khởi động bot: " + response.status);
+                }
+                return response.json();
+            })
+            .then(data => {
+                document.getElementById("status").innerText = "Bot đang chạy";
+                document.getElementById("consoleOutput").innerText += "\n[INFO] Bot đã khởi động.";
+            })
+            .catch(error => {
+                document.getElementById("consoleOutput").innerText += "\n[ERROR] " + error.message;
+            });
         });
-    });
-
-    document.getElementById("stopBot").addEventListener("click", function() {
-        fetch('/stop-bot', { method: 'POST' }).then(res => res.json()).then(data => {
-            document.getElementById("status").innerText = data.status;
-            document.getElementById("consoleOutput").innerText += `\n${data.message}`;
+        
+        document.getElementById("stopBot").addEventListener("click", function() {
+            document.getElementById("status").innerText = "Bot đã dừng";
+            document.getElementById("consoleOutput").innerText += "\n[INFO] Bot đã dừng.";
         });
-    });
-</script>
+    </script>
 </body>
 </html>
