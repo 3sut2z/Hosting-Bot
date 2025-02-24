@@ -5,6 +5,34 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hosting Bot Discord</title>
     <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #282c34;
+            color: white;
+            text-align: center;
+            padding: 50px;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: #3b3f47;
+            padding: 20px;
+            border-radius: 10px;
+        }
+        button {
+            background: #7289da;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin: 10px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        button:hover {
+            background: #5b6eae;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
@@ -17,6 +45,18 @@
             <button id="stopBot">Dừng Bot</button>
         </div>
     </div>
-    <script src="script.js"></script>
+    <script>
+        document.getElementById("loginBtn").addEventListener("click", function() {
+            alert("Đăng nhập với Discord chưa được tích hợp!");
+        });
+        
+        document.getElementById("startBot").addEventListener("click", function() {
+            document.getElementById("status").innerText = "Bot đang chạy";
+        });
+        
+        document.getElementById("stopBot").addEventListener("click", function() {
+            document.getElementById("status").innerText = "Bot đã dừng";
+        });
+    </script>
 </body>
 </html>
