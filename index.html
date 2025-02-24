@@ -20,6 +20,26 @@
             padding: 20px;
             border-radius: 10px;
         }
+        textarea {
+            width: 100%;
+            height: 150px;
+            margin: 10px 0;
+            border-radius: 5px;
+            padding: 10px;
+            background: #1e1e1e;
+            color: white;
+            border: none;
+        }
+        .console {
+            background: black;
+            color: green;
+            padding: 10px;
+            height: 150px;
+            overflow-y: auto;
+            text-align: left;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
         button {
             background: #7289da;
             color: white;
@@ -37,25 +57,24 @@
 <body>
     <div class="container">
         <h1>Hosting Bot Discord</h1>
-        <button id="loginBtn">Đăng nhập với Discord</button>
+        <textarea id="botCode" placeholder="Nhập code bot của bạn..."></textarea>
         <div id="botStatus">
             <h2>Trạng thái Bot</h2>
             <p id="status">Đang tải...</p>
             <button id="startBot">Khởi động Bot</button>
             <button id="stopBot">Dừng Bot</button>
         </div>
+        <div class="console" id="consoleOutput">Console output...</div>
     </div>
     <script>
-        document.getElementById("loginBtn").addEventListener("click", function() {
-            alert("Đăng nhập với Discord chưa được tích hợp!");
-        });
-        
         document.getElementById("startBot").addEventListener("click", function() {
             document.getElementById("status").innerText = "Bot đang chạy";
+            document.getElementById("consoleOutput").innerText += "\n[INFO] Bot đã khởi động.";
         });
         
         document.getElementById("stopBot").addEventListener("click", function() {
             document.getElementById("status").innerText = "Bot đã dừng";
+            document.getElementById("consoleOutput").innerText += "\n[INFO] Bot đã dừng.";
         });
     </script>
 </body>
