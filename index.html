@@ -47,13 +47,6 @@
             margin-top: 10px;
             border-radius: 5px;
         }
-        pre {
-            text-align: left;
-            padding: 10px;
-            background: #23272a;
-            border-radius: 5px;
-            overflow-x: auto;
-        }
     </style>
 </head>
 <body>
@@ -65,6 +58,8 @@
         <input type="text" id="npm" placeholder="Nhập lệnh npm (ví dụ: npm install discord.js)">
         <button onclick="installNpm()">Cài npm</button>
         <button onclick="installPip()">Cài pip</button>
+        <button onclick="installDiscordJS()">Cài discord.js</button>
+        <button onclick="installDiscordPy()">Cài discord.py</button>
         <button onclick="runBot()">Chạy Bot</button>
         <h3>Console:</h3>
         <div id="console"></div>
@@ -101,6 +96,24 @@
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ requirements })
+            }).then(response => response.text()).then(data => logConsole(data));
+        }
+
+        function installDiscordJS() {
+            logConsole("Cài đặt discord.js...");
+            fetch("/install/npm", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ command: "npm install discord.js" })
+            }).then(response => response.text()).then(data => logConsole(data));
+        }
+
+        function installDiscordPy() {
+            logConsole("Cài đặt discord.py...");
+            fetch("/install/pip", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ requirements: "discord" })
             }).then(response => response.text()).then(data => logConsole(data));
         }
 
